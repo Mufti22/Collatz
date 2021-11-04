@@ -1,13 +1,16 @@
+import java.math.BigInteger;
 import java.util.Scanner;
-public class Main{
-    static int cycle2 (int num) {
-        if (num == 1) {
-            return 0;
+
+public class Main {
+    static BigInteger cycle2 (BigInteger num) {
+        if (num.compareTo(BigInteger.ONE) == 0) {
+            return BigInteger.ZERO;
         } else {
-            if (num % 2 > 0) {
-                return 1 + cycle2(num * 3 + 1);
+            BigInteger mod = num.mod(BigInteger.TWO);
+            if (mod.compareTo(BigInteger.ZERO) == 1) {
+                return BigInteger.ONE.add(cycle2(num.multiply(BigInteger.valueOf(3)).add(BigInteger.ONE)));
             } else {
-                return 1 + cycle2(num / 2);
+                return BigInteger.ONE.add(cycle2(num.divide(BigInteger.TWO)));
             }
         }
 
@@ -15,7 +18,9 @@ public class Main{
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         System.out.print("Input a number: ");
-        int num = in.nextInt();
-        System.out.printf("Comes to one "+ cycle2(num));
+        BigInteger num = in.nextBigInteger();
+        System.out.printf("Comes to one in "+ cycle2(num) + " steps");
     }
 }
+
+// test 40124643117
